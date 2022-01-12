@@ -1,8 +1,13 @@
 const mongoose = require("mongoose");
+const { ObjectId } = mongoose;
 
 const userSchema = mongoose.Schema({
+  kakao_id: {
+    type: Number,
+    unique: true,
+  },
   name: String,
-  bokjumani: [{ type: ObjectId, ref: "Bokjimani" }],
+  bokjumani_list: [{ type: ObjectId, ref: "Bokjimani" }],
   created_at: {
     type: Date,
     default: Date.now,

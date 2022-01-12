@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const bokjumaniSchema = mongoose.Schema({
   author: {
     type: String,
+    ref: "User",
   },
   image_url: String,
   note: String,
