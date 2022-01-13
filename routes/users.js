@@ -8,22 +8,30 @@ router.get("/", async function (req, res, next) {
   try {
     const { kakaoId } = req.query;
 
-    const user = await User.findOne({ kakaoId });
+    const user = await User.findOne({ kakaoId }).lean();
 
     console.log("그런 유저 있습니까..?", user);
 
     if (user) {
-      res.cookie("user", user._id.toString(), {
+      delete user.kakao_id;
+
+      res.cookie("user", JSON.stringify(user), {
         httpOnly: false,
         secure: true,
         expires: new Date(Date.now() + 900000),
         sameSite: "none",
       });
-      res.send("유저 이써");
+      res.json({
+        result: "ok",
+        message: "유저 이써",
+      });
       return;
     }
 
-    res.json(user);
+    res.json({
+      result: "failed",
+      message: "User is not found..",
+    });
   } catch (error) {
     console.log(error);
 
