@@ -18,7 +18,8 @@
     "mongoose": "^6.1.5",
     "morgan": "~1.9.1",
     "passport": "^0.5.2",
-    "passport-kakao": "^1.0.1"
+    "passport-kakao": "^1.0.1",
+    "randomstring": "^1.2.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
