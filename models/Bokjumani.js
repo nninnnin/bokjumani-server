@@ -5,8 +5,8 @@ const bokjumaniSchema = mongoose.Schema({
     type: String,
     ref: "User",
   },
-  image_url: String,
-  note: String,
+  type: Number,
+  greeting: String,
   created_at: {
     type: Date,
     default: Date.now,
