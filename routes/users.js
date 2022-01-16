@@ -1,5 +1,6 @@
 const express = require("express");
-const axios = require("axios");
+const randomstring = require("randomstring");
+
 const User = require("../models/User");
 
 const router = express.Router();
@@ -10,20 +11,19 @@ router.get("/", async function (req, res, next) {
 
     const user = await User.findOne({ kakaoId }).lean();
 
-    console.log("그런 유저 있습니까..?", user);
-
     if (user) {
       delete user.kakao_id;
+      delete user.bokjumani_list;
 
       res.cookie("user", JSON.stringify(user), {
         httpOnly: false,
         secure: true,
-        expires: new Date(Date.now() + 900000),
+        expires: new Date(Date.now() + 86400000),
         sameSite: "none",
       });
       res.json({
         result: "ok",
-        message: "유저 이써",
+        user,
       });
       return;
     }
@@ -60,7 +60,12 @@ router.post("/", async function (req, res, next) {
       return;
     }
 
-    const newUser = new User({ kakao_id: kakaoId, name: username });
+    const newUser = new User({
+      kakao_id: kakaoId,
+      name: username,
+      room_uri: randomstring.generate(7),
+    });
+
     await newUser.save();
 
     res.json({ result: "ok", newUser });
