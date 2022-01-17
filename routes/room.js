@@ -8,11 +8,14 @@ router.get("/:roomId", async function (req, res, next) {
   try {
     const { roomId } = req.params;
 
-    const user = await User.findOne({ room_id: roomId }).populate(
-      "bokjumani_list"
-    );
-
-    console.log("roomid로 찾아낸 유저..", user);
+    const user = await User.findOne({ room_id: roomId })
+      .populate({
+        path: "bokjumani_list",
+        options: {
+          sort: { created_at: -1 },
+        },
+      })
+      .slice("bokjumani_list", -16);
 
     if (!user) {
       res.json({
