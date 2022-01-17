@@ -6,6 +6,32 @@ const User = require("../models/User");
 
 const router = express.Router();
 
+router.get("/:bokjumaniId", async function (req, res, next) {
+  try {
+    const { bokjumaniId } = req.params;
+
+    const bokjumani = await Bokjumani.findById(bokjumaniId);
+
+    if (!bokjumani) {
+      res.json({
+        result: "failed",
+        message: "복주머니를 찾을 수 없습니다!",
+      });
+
+      return;
+    }
+
+    res.json({
+      result: "ok",
+      bokjumani,
+    });
+  } catch (error) {
+    console.log(error);
+
+    next(error);
+  }
+});
+
 router.post("/:userId", async function (req, res, next) {
   try {
     const { userId } = req.params;
@@ -20,8 +46,6 @@ router.post("/:userId", async function (req, res, next) {
     }
 
     const user = await User.findById(userId);
-
-    console.log("찾아온 유저", user);
 
     if (!user) {
       res.json({
