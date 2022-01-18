@@ -11,6 +11,8 @@ router.get("/", async function (req, res, next) {
 
     const user = await User.findOne({ kakaoId }).lean();
 
+    console.log("카카오 아이디로 찾은 유저", user);
+
     if (user) {
       delete user.kakao_id;
       delete user.bokjumani_list;
@@ -21,10 +23,12 @@ router.get("/", async function (req, res, next) {
         expires: new Date(Date.now() + 86400000),
         sameSite: "none",
       });
+
       res.json({
         result: "ok",
         user,
       });
+
       return;
     }
 
