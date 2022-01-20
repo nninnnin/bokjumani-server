@@ -14,12 +14,13 @@ var app = express();
 
 app.use(
   cors({
-    origin: true,
+    origin: [
+      "http://localhost:3000",
+      "https://youthful-goldberg-a971cb.netlify.app",
+    ],
     credentials: true,
   })
 );
-
-app.set("trust proxy", 1);
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
