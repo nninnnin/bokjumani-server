@@ -19,6 +19,8 @@ app.use(
     origin: [
       "http://localhost:3000",
       "https://youthful-goldberg-a971cb.netlify.app",
+      "https://www.bokjumani.com",
+      "http://www.bokjumani.com",
     ],
     credentials: true,
   })
