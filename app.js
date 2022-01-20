@@ -12,6 +12,8 @@ var roomRouter = require("./routes/room");
 
 var app = express();
 
+app.set("trust proxy", 1);
+
 app.use(
   cors({
     origin: [
