@@ -14,10 +14,7 @@ var app = express();
 
 app.use(
   cors({
-    origin: [
-      "http://localhost:3000",
-      "https://youthful-goldberg-a971cb.netlify.app",
-    ],
+    origin: true,
     methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD"],
     credentials: true,
   })
