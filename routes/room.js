@@ -8,7 +8,7 @@ router.get("/:roomId", async function (req, res, next) {
   try {
     const { roomId } = req.params;
 
-    const user = await User.findOne({ room_id: roomId })
+    const user = await User.findOne({ room_uri: roomId })
       .populate({
         path: "bokjumani_list",
         options: {
