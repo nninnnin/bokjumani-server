@@ -17,7 +17,10 @@ router.get("/", async function (req, res, next) {
       delete user.kakao_id;
       delete user.bokjumani_list;
 
+      console.log(req.hostname);
+
       res.cookie("user", JSON.stringify(user), {
+        domain: req.hostname,
         httpOnly: false,
         secure: true,
         expires: new Date(Date.now() + 86400000),
