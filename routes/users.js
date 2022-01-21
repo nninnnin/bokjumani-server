@@ -20,7 +20,7 @@ router.get("/", async function (req, res, next) {
       console.log(req.hostname);
 
       res.cookie("user", JSON.stringify(user), {
-        domain: req.hostname,
+        domain: "bokjumani.com",
         httpOnly: false,
         secure: true,
         expires: new Date(Date.now() + 86400000),
