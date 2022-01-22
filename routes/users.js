@@ -11,15 +11,11 @@ router.get("/", async function (req, res, next) {
 
     const user = await User.findOne({ kakao_id: kakaoId }).lean();
 
-    console.log("카카오 아이디로 찾은 유저", user);
-
     if (user) {
+      console.log("유저 로그인", user);
+
       delete user.kakao_id;
       delete user.bokjumani_list;
-
-      console.log(req.protocol);
-      console.log(req.hostname);
-      console.log(req.subdomains);
 
       let domain;
 
@@ -29,8 +25,6 @@ router.get("/", async function (req, res, next) {
       } else {
         domain = req.hostname;
       }
-
-      console.log("domains on cookie..", domain);
 
       res.cookie("user", JSON.stringify(user), {
         domain,
