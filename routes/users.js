@@ -17,10 +17,23 @@ router.get("/", async function (req, res, next) {
       delete user.kakao_id;
       delete user.bokjumani_list;
 
+      console.log(req.protocol);
       console.log(req.hostname);
+      console.log(req.subdomains);
+
+      let domain;
+
+      // always get original domains
+      if (req.subdomains.length) {
+        domain = req.hostname.split(".").slice(-2).join(".");
+      } else {
+        domain = req.hostname;
+      }
+
+      console.log("domains on cookie..", domain);
 
       res.cookie("user", JSON.stringify(user), {
-        domain: "bokjumani.com",
+        domain,
         httpOnly: false,
         secure: true,
         expires: new Date(Date.now() + 86400000),
